@@ -1,0 +1,27 @@
+.change-links li {
+  display: inline;
+}
+
+.change-links input {
+  background: none;
+  border: none;
+  color: #008cba;
+  font-size: 1rem;
+}
+
+.change-links input:hover {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.answers {
+  margin-left: 0;
+}
+
+.answers li {
+  padding: 15px;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: #eee;
+  border: 1px solid #aaa;
+}

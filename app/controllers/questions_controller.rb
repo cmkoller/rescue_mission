@@ -14,16 +14,39 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    question_params = {title: params[:title], description: params[:description]}
-
     @question = Question.new(question_params)
 
     if @question.save
-      redirect_to @question
+      redirect_to @question, info: "Question created"
     else
-      # @question.errors.messages
+      flash[:warning] = @question.errors.full_messages.join(".  ")
       render :action => 'new'
     end
   end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+
+    if @question.update(question_params)
+      redirect_to @question
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    Question.destroy(params[:id])
+    redirect_to :action => "index"
+  end
+
+  private
+    def question_params
+      params.require(:question).permit(:title, :description)
+    end
+
 
 end
