@@ -36,8 +36,8 @@ feature "Post a Question", %q(
     fill_in "Description", with: description
     click_on "Create Question"
     expect(page).to have_content("Title is too short")
-    find_field("Title").value.should eq title
-    find_field("Description").value.should eq description
+    expect(find_field("Title").value).to eq title
+    expect(find_field("Description").value).to eq description
   end
 
   scenario 'user posts a question with too-short description' do
@@ -49,8 +49,8 @@ feature "Post a Question", %q(
     fill_in "Description", with: description
     click_on "Create Question"
     expect(page).to have_content("Description is too short")
-    find_field("Title").value.should eq title
-    find_field("Description").value.should eq description
+    expect(find_field("Title").value).to eq title
+    expect(find_field("Description").value).to eq description
   end
 
 

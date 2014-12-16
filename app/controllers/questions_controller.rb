@@ -36,6 +36,7 @@ class QuestionsController < ApplicationController
       flash[:info] = "Question Updated."
       redirect_to @question
     else
+      flash[:warning] = @question.errors.full_messages.join(".  ")
       render 'edit'
     end
   end
