@@ -22,6 +22,8 @@ one)
     fill_in "Password confirmation", with: "supersecret"
     click_on "Sign up"
     expect(page).to have_content "Welcome! You have signed up successfully."
+    expect(page).to_not have_link "Sign Up"
+    expect(page).to have_link "Sign Out"
   end
 
   scenario "password fields do not match" do
@@ -57,6 +59,20 @@ one)
     click_on "Sign up"
 
     expect(page).to have_content "Email has already been taken"
+  end
+
+  scenario "improperly formatted email" do
+    visit root_path
+    click_on "Sign Up"
+
+    fill_in "First Name", with: "Joe"
+    fill_in "Last Name", with: "Shmoe"
+    fill_in "Email", with: "email.com"
+    fill_in "Password", with: "supersecret"
+    fill_in "Password confirmation", with: "different"
+    click_on "Sign up"
+
+    expect(page).to have_content "Email is invalid"
   end
 
 end
