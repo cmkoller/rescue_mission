@@ -55,6 +55,11 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     foundation-rails (5.4.3.1)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -75,7 +80,6 @@ GEM
     multi_json (1.10.1)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
-    orderly (0.0.2)
     orm_adapter (0.5.0)
     pg (0.17.1)
     pry (0.10.1)
@@ -159,10 +163,10 @@ PLATFORMS
 DEPENDENCIES
   capybara
   devise
+  factory_girl_rails
   foundation-rails
   jquery-rails
   launchy
-  orderly
   pg
   pry-rails
   rails (= 4.1.8)

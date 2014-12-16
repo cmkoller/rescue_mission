@@ -13,61 +13,60 @@ feature "Post a Question", %q(
 ) do
 
   scenario 'user posts a question' do
-    title = "How do I do this crazy complicated thing??"
-    description = "Here's a pretty long description of my question.
-    Here's a pretty long description of my question.
-    Here's a pretty long description of my question. "
+    # title = "How do I do this crazy complicated thing??"
+    # description = "Here's a pretty long description of my question.
+    # Here's a pretty long description of my question.
+    # Here's a pretty long description of my question. "
+    question = FactoryGirl.build(:question)
 
     visit new_question_path
-    fill_in "Title", with: title
-    fill_in "Description", with: description
+    fill_in "Title", with: question.title
+    fill_in "Description", with: question.description
     click_on "Create Question"
     expect(page).to have_content("Question created.")
-    expect(page).to have_content(title)
-    expect(page).to have_content(description)
+    expect(page).to have_content(question.title)
+    expect(page).to have_content(question.description)
   end
 
   scenario 'user posts a question with too-short title' do
-    title = "Short Title"
-    description = "Here's a pretty long description of my question. Here's a pretty long description of my question. Here's a pretty long description of my question. "
+    question = FactoryGirl.build(:question)
+    question.title = "Short Title"
 
     visit new_question_path
-    fill_in "Title", with: title
-    fill_in "Description", with: description
+    fill_in "Title", with: question.title
+    fill_in "Description", with: question.description
     click_on "Create Question"
     expect(page).to have_content("Title is too short")
-    expect(find_field("Title").value).to eq title
-    expect(find_field("Description").value).to eq description
+    expect(find_field("Title").value).to eq question.title
+    expect(find_field("Description").value).to eq question.description
   end
 
   scenario 'user posts a question with too-long title' do
-    title = "Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-    oooooooooooooooooooooooooooong loooooooooooooooooooooooooooooooooooooooooooo
-    ooooooooooooooooooooooooooooooooooooooooooooooong looooooooooooooooooooooooo
-    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong title"
-    description = "Here's a pretty long description of my question. Here's a pretty long description of my question. Here's a pretty long description of my question. "
+    question = FactoryGirl.build(:question)
+
+    question.title *= 8
 
     visit new_question_path
-    fill_in "Title", with: title
-    fill_in "Description", with: description
+    fill_in "Title", with: question.title
+    fill_in "Description", with: question.description
     click_on "Create Question"
     expect(page).to have_content("Title is too long")
-    expect(find_field("Title").value).to eq title
-    expect(find_field("Description").value).to eq description
+    expect(find_field("Title").value).to eq question.title
+    expect(find_field("Description").value).to eq question.description
   end
 
   scenario 'user posts a question with too-short description' do
-    title = "How do I do this crazy complicated thing??"
-    description = "Short description"
+    question = FactoryGirl.build(:question)
+
+    question.description = "Short description"
 
     visit new_question_path
-    fill_in "Title", with: title
-    fill_in "Description", with: description
+    fill_in "Title", with: question.title
+    fill_in "Description", with: question.description
     click_on "Create Question"
     expect(page).to have_content("Description is too short")
-    expect(find_field("Title").value).to eq title
-    expect(find_field("Description").value).to eq description
+    expect(find_field("Title").value).to eq question.title
+    expect(find_field("Description").value).to eq question.description
   end
-
 
 end
