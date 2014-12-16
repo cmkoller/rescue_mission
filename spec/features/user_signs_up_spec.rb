@@ -24,4 +24,18 @@ one)
     expect(page).to have_content "Welcome! You have signed up successfully."
   end
 
+  scenario "password fields do not match" do
+    visit root_path
+    click_on "Sign Up"
+
+    fill_in "First Name", with: "Joe"
+    fill_in "Last Name", with: "Shmoe"
+    fill_in "Email", with: "name@email.com"
+    fill_in "Password", with: "supersecret"
+    fill_in "Password confirmation", with: "different"
+    click_on "Sign up"
+
+    expect(page).to have_content "Password confirmation doesn't match Password"
+  end
+
 end
