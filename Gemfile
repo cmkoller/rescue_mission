@@ -16,8 +16,8 @@ gem 'spring',        group: :development
 group :test, :development do
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'orderly'
   gem 'capybara'
+  gem 'orderly'
   gem 'launchy'
 end
 

@@ -42,17 +42,16 @@ Acceptance Criteria
 
     answer1 = Answer.create({
       question_id: question.id,
-      description: "Here's a nice, long, well-thought-out answer that is definitely
-      at least 50 characters."})
+      description: "This should appear LAST! Here's a nice, long, well-thought-out answer that is definitely" +
+      " at least 50 characters."})
     answer2 = Answer.create({
       question_id: question.id,
-      description: "Here's a SECOND nice, long, well-thought-out answer that is
-      definitely at least 50 characters."})
+      description: "This should appear FIRST! Here's a SECOND nice, long, well-thought-out answer that is" +
+      " definitely at least 50 characters."})
 
       visit question_path(question.id)
       expect(page).to have_content(answer1.description)
       expect(page).to have_content(answer2.description)
-      # save_and_open_page
       # expect(answer2.description).to appear_before(answer1.description)
     end
 

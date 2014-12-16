@@ -40,6 +40,22 @@ feature "Post a Question", %q(
     expect(find_field("Description").value).to eq description
   end
 
+  scenario 'user posts a question with too-long title' do
+    title = "Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+    oooooooooooooooooooooooooooong loooooooooooooooooooooooooooooooooooooooooooo
+    ooooooooooooooooooooooooooooooooooooooooooooooong looooooooooooooooooooooooo
+    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong title"
+    description = "Here's a pretty long description of my question. Here's a pretty long description of my question. Here's a pretty long description of my question. "
+
+    visit new_question_path
+    fill_in "Title", with: title
+    fill_in "Description", with: description
+    click_on "Create Question"
+    expect(page).to have_content("Title is too long")
+    expect(find_field("Title").value).to eq title
+    expect(find_field("Description").value).to eq description
+  end
+
   scenario 'user posts a question with too-short description' do
     title = "How do I do this crazy complicated thing??"
     description = "Short description"
