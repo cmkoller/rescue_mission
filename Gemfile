@@ -8,10 +8,18 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'foundation-rails'
+gem 'devise'
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
-gem 'pry', group: :development
+
+
+group :test, :development do
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'orderly'
+  gem 'capybara'
+  gem 'launchy'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

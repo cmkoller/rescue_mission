@@ -2,7 +2,7 @@ require 'pry'
 
 class QuestionsController < ApplicationController
   def index
-    @questions = Question.order(:created_at)
+    @questions = Question.order(created_at: :desc)
   end
 
   def new
@@ -17,7 +17,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save
-      redirect_to @question, info: "Question created"
+      flash[:info] = "Question created."
+      redirect_to @question
     else
       flash[:warning] = @question.errors.full_messages.join(".  ")
       render :action => 'new'
@@ -32,6 +33,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
 
     if @question.update(question_params)
+      flash[:info] = "Question Updated."
       redirect_to @question
     else
       render 'edit'
@@ -40,6 +42,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     Question.destroy(params[:id])
+    flash[:info] = "Question Deleted."
     redirect_to :action => "index"
   end
 
