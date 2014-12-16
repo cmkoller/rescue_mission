@@ -38,4 +38,25 @@ one)
     expect(page).to have_content "Password confirmation doesn't match Password"
   end
 
+  scenario "email is already registered" do
+    existing_user = User.create(
+    first_name: "Joe",
+    last_name: "Schmoe",
+    email: "email@email.com",
+    password: "passwordsecret"
+    )
+
+    visit root_path
+    click_on "Sign Up"
+
+    fill_in "First Name", with: existing_user.first_name
+    fill_in "Last Name", with: existing_user.last_name
+    fill_in "Email", with: existing_user.email
+    fill_in "Password", with: existing_user.password
+    fill_in "Password confirmation", with: existing_user.password
+    click_on "Sign up"
+
+    expect(page).to have_content "Email has already been taken"
+  end
+
 end
