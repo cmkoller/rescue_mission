@@ -1,4 +1,4 @@
-<%= form_for([@question, @question.answers.build]) do |f| %>
+<%= form_for([@question, @question.answers.create]) do |f| %>
 
   <%= f.label :description, "Add an Answer:" %>
   <%= f.text_area :description %>

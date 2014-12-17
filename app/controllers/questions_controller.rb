@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  # before_action :authenticate_question_author, only: [:delete, :edit]
   def index
     @questions = Question.order(created_at: :desc)
   end
@@ -47,9 +48,21 @@ class QuestionsController < ApplicationController
   end
 
   private
+    # Is there a better way to do this?
     def question_params
-      params.require(:question).permit(:title, :description)
+      question_hash = params.require(:question).permit(:title, :description)
+      question_hash[:user_id] = current_user.id
+      question_hash
     end
 
+    def authenticate_question_author
+      @question = Question.find(params[:id])
+      # binding.pry
+      unless current_user == @question.user_id
+        flash[:error] = "You must be logged in to do that"
+        redirect_to question_path(@question)
+      end
+
+    end
 
 end

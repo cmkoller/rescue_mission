@@ -20,8 +20,6 @@
 <a href="<%= questions_path %>" class="right">Back to Questions</a>
 <hr />
 
-<%= render 'answers/answer_form' %>
-
 <h4>Answers</h4>
 
 <ul class="answers">
@@ -29,3 +27,5 @@
     <li class="answer"><%= answer.description %></li>
   <% end %>
 </ul>
+
+<%= render 'answers/answer_form' %>

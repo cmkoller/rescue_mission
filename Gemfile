@@ -9,6 +9,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'foundation-rails'
 gem 'devise'
+gem 'omniauth-github'
+gem 'dotenv-rails'
 
 gem 'spring',        group: :development
 

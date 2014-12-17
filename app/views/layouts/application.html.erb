@@ -17,9 +17,7 @@
       <ul class="title-area">
         <li class="name">
           <h1>
-            <a href="#">
-              Top Bar Title
-            </a>
+            <%= link_to "Rescue Missions", root_path %>
           </h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -31,8 +29,9 @@
           <% if !user_signed_in?%>
             <li><%= link_to "Sign Up", new_user_registration_path %></li>
             <li><%= link_to "Sign In", new_user_session_path %></li>
+            <li><%= link_to "Sign in with Github", user_omniauth_authorize_path(:github) %></li>
           <% else %>
-            <li><%= link_to "Sign Out", destroy_user_session_path %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
           <% end %>
           <li class="divider"></li>
         </ul>
@@ -42,8 +41,6 @@
 
     <div class="row">
       <div class="columns 12">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
 
         <%= render 'layouts/flash' %>
         <%= yield %>
