@@ -12,14 +12,23 @@ Acceptance Criteria
 - I must be able to get to the edit page from the question details page
 ) do
 
+  before(:each) do
+    user = User.create(
+    first_name: "Joe",
+    last_name: "Schmoe",
+    email: "email@email.com",
+    password: "passwordsecret"
+    )
+
+    visit new_user_session_path
+    fill_in "Email",with: user.email
+    fill_in "Password", with: user.password
+    click_button "Log in"
+    visit new_question_path
+  end
+
   scenario 'user navigates to edit page from question page' do
-    attrs = {
-      title: "How do I do this crazy complicated thing??",
-      description: "Here's a pretty long description of my question.
-      Here's a pretty long description of my question.
-      Here's a pretty long description of my question. "
-    }
-    question = Question.create(attrs)
+    question = FactoryGirl.create(:question)
 
     visit question_path(question.id)
     click_on "Edit"
@@ -29,13 +38,7 @@ Acceptance Criteria
   end
 
   scenario 'user successfully edits question' do
-    attrs = {
-      title: "How do I do this crazy complicated thing??",
-      description: "Here's a pretty long description of my question.
-      Here's a pretty long description of my question.
-      Here's a pretty long description of my question. "
-    }
-    question = Question.create(attrs)
+    question = FactoryGirl.create(:question)
 
     new_title = "Here's a brand new question title that's definitely
     way better."
@@ -56,13 +59,7 @@ Acceptance Criteria
   end
 
   scenario 'user unsuccessfully edits question - title too short' do
-    attrs = {
-      title: "How do I do this crazy complicated thing??",
-      description: "Here's a pretty long description of my question.
-      Here's a pretty long description of my question.
-      Here's a pretty long description of my question. "
-    }
-    question = Question.create(attrs)
+    question = FactoryGirl.create(:question)
 
     new_title = "New short title"
     new_description = "New description, New description,New description, New description, New description, New description, New description, New description, New description, New description"
@@ -80,14 +77,8 @@ Acceptance Criteria
   end
 
   scenario 'user unsuccessfully edits question - description too short' do
-    attrs = {
-      title: "How do I do this crazy complicated thing??",
-      description: "Here's a pretty long description of my question.
-      Here's a pretty long description of my question.
-      Here's a pretty long description of my question. "
-    }
-    question = Question.create(attrs)
-
+    question = FactoryGirl.create(:question)
+    
     new_title = "Here's a brand new question title that's definitely
     way better."
     new_description = "New short description"

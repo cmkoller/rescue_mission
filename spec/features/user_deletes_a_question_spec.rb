@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Edit Question", %q(
+feature "Delete Question", %q(
 As a user
 I want to delete a question
 So that I can delete duplicate questions
@@ -12,15 +12,24 @@ Acceptance Criteria
 - All answers associated with the question must also be deleted
 ) do
 
-  scenario 'user deletes a question from question details page' do
-    attrs = {
-      title: "How do I do this crazy complicated thing??",
-      description: "Here's a pretty long description of my question.
-      Here's a pretty long description of my question.
-      Here's a pretty long description of my question. "
-    }
-    question = Question.create(attrs)
+  before(:each) do
+    user = User.create(
+    first_name: "Joe",
+    last_name: "Schmoe",
+    email: "email@email.com",
+    password: "passwordsecret"
+    )
 
+    visit new_user_session_path
+    fill_in "Email",with: user.email
+    fill_in "Password", with: user.password
+    click_button "Log in"
+    visit new_question_path
+
+  end
+
+  scenario 'user deletes a question from question details page' do
+    question = FactoryGirl.create(:question)
     visit question_path(question.id)
     click_on "Delete"
     expect(page).to have_content("Question Deleted")
