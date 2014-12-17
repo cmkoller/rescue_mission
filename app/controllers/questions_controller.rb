@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action :authenticate_question_author, only: [:delete, :edit]
+  before_action :authenticate_question_author, only: [:destroy, :edit]
   def index
     @questions = Question.order(created_at: :desc)
   end
@@ -57,9 +57,8 @@ class QuestionsController < ApplicationController
 
     def authenticate_question_author
       @question = Question.find(params[:id])
-      # binding.pry
       unless current_user == @question.user_id
-        flash[:error] = "You must be logged in to do that"
+        flash[:error] = "You must be the owner of the question to do that."
         redirect_to question_path(@question)
       end
 
